@@ -1,10 +1,7 @@
-﻿using System;
+﻿using MethodsV3.Вспомогательные_классы;
+using System;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MethodsV3
@@ -22,7 +19,7 @@ namespace MethodsV3
             mainTable = mainData;
             SetDataGridsettings();
             
-            this.Show();
+            this.ShowDialog();
         }
 
         private void TableDataForm_SizeChanged(object sender, EventArgs e)
@@ -39,7 +36,7 @@ namespace MethodsV3
             dataGrid.Columns[0].Width = 50;
             SetColumns();
             dataGrid.Dock = DockStyle.Fill;
-
+            dataGrid.DoubleBuffered(true);
             this.SizeChanged += TableDataForm_SizeChanged;
             foreach(DataGridViewColumn t in dataGrid.Columns)
                 t.SortMode = DataGridViewColumnSortMode.Programmatic;
@@ -65,7 +62,7 @@ namespace MethodsV3
         }
         private void SetRows()
         {
-            int tmpRowH = dataGrid.Rows[0].Height;
+            int tmpRowH = 22;
             int tmpH = Height - (tmpRowH * mainTable.Rows.Count);
 
             if (tmpH >= tmpRowH)

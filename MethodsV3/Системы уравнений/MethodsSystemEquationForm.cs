@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
+using System.Reflection;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MethodsV3
+namespace MethodsV3.Системы_уравнений
 {
     public partial class MethodsSystemEquationForm : Form
     {
@@ -41,7 +36,6 @@ namespace MethodsV3
                 if (int.TryParse(tbxCount.Text, out tbxCounts))
                 {
                     CreateTextBosex(tbxCounts);
-                    isCreated = false;
                 }
                 else
                 {
@@ -132,11 +126,12 @@ namespace MethodsV3
             method.RunMethod(MethodsSystemEquation.EMethodsSystem.Zeidel);
             counter = 0;
         }
-        bool isCreated = false;
 
+        //Функия, реализующая сохранение данных в файл
         private void SaveData()
         {
-            using (StreamWriter writer = new StreamWriter("mTxt.txt", false))
+            //Получаем поток записи в файл
+            using (var writer = new StreamWriter("savedMatrix.txt"))
             {
                 int counter = 0;
                 writer.WriteLine(tbxCounts);
@@ -149,32 +144,32 @@ namespace MethodsV3
                 }
             }
         }
+        //Событие кнопки, по нажатию которой загружаются данные из файла
         private void buttonUpload_Click(object sender, EventArgs e)
         {
-            if (!isCreated)
+            //Получаем поток чтения файла
+            var ssss = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+
+            using (StreamReader reader = new StreamReader("savedMatrix.txt"))
             {
-                using (StreamReader reader = new StreamReader("mTxt.txt", false))
+                int counter = 0;
+                try
                 {
-                    int counter = 0;
-                    try
-                    {
-                        int tbc = int.Parse(reader.ReadLine());
-                        tbxCount.Text = tbc.ToString();
-                        tbxCounts = tbc;
-                        CreateTextBosex(tbc);
-                        tbxEps.Text = reader.ReadLine();
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                    while (tbxCounts * tbxCounts + tbxCounts > counter)
-                    {
-                        Owner.Controls.Find($"tbx{counter}", true)[0].Text = reader.ReadLine();
-                        counter++;
-                    }
+                    int tbc = int.Parse(reader.ReadLine());
+                    tbxCount.Text = tbc.ToString();
+                    tbxCounts = tbc;
+                    CreateTextBosex(tbc);
+                    tbxEps.Text = reader.ReadLine();
                 }
-                isCreated = true;
+                catch
+                {
+                    return;
+                }
+                while (tbxCounts * tbxCounts + tbxCounts > counter)
+                {
+                    Owner.Controls.Find($"tbx{counter}", true)[0].Text = reader.ReadLine();
+                    counter++;
+                }
             }
         }
     }

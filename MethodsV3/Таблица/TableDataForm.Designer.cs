@@ -48,6 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dataGrid);
+            this.DoubleBuffered = true;
             this.Name = "TableDataForm";
             this.Text = "Таблица";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();

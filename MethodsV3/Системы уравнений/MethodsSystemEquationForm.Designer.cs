@@ -1,4 +1,4 @@
-﻿namespace MethodsV3
+﻿namespace MethodsV3.Системы_уравнений
 {
     partial class MethodsSystemEquationForm
     {

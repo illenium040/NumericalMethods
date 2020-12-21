@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using MethodsV3.Вспомогательные_классы;
+using System;
 using System.Windows.Forms;
 
-namespace MethodsV3
+namespace MethodsV3.Нелинейные_уравнения
 {
     public partial class MethodsEquationsForm : Form
     {
-        IMethod functions;
+        MethodsEquations functions;
         CreateChart createChart;
 
         public MethodsEquationsForm()
@@ -21,7 +20,13 @@ namespace MethodsV3
                     tbx.TextChanged += tbx_TextChanged;
             }
             textBox1.KeyDown += TextBox1_KeyDown;
+            //textBox1.TextChanged += TextBox1_TextChanged;
         }
+
+        //private void TextBox1_TextChanged(object sender, EventArgs e)
+        //{
+        //    createChart.CreateSchedule(textBox1.Text);
+        //}
 
         private void tbx_TextChanged(object sender, EventArgs e)
         {

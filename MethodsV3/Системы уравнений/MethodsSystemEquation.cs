@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using MathNet.Numerics.LinearAlgebra;
 using System.Windows.Forms;
+using MethodsV3.Вспомогательные_классы;
 
-namespace MethodsV3
+namespace MethodsV3.Системы_уравнений
 {
     class MethodsSystemEquation : AuxiliaryClass, IMethod
     {

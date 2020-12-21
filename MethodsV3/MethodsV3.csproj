@@ -12,6 +12,9 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,11 +27,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +36,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -49,6 +49,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Flee.Net45, Version=1.0.0.0, Culture=neutral, PublicKeyToken=951a102ce2413032, processorArchitecture=MSIL">
@@ -80,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Вспомогательные классы\AuxiliaryClass.cs" />
     <Compile Include="Вспомогательные классы\CreateChart.cs" />
+    <Compile Include="Вспомогательные классы\Extensions.cs" />
     <Compile Include="Вспомогательные классы\FleeCompile.cs" />
     <Compile Include="IMethod.cs" />
     <Compile Include="MainForm.cs">
@@ -88,12 +92,33 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Интегрирование\Integral.cs" />
+    <Compile Include="Интегрирование\IntegralForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Интегрирование\IntegralForm.Designer.cs">
+      <DependentUpon>IntegralForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Интерполяция\Interpolation.cs" />
+    <Compile Include="Интерполяция\InterpolationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Интерполяция\InterpolationForm.Designer.cs">
+      <DependentUpon>InterpolationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Нелинейные уравнения\MethodsEquations.cs" />
     <Compile Include="Нелинейные уравнения\MethodsEquationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Нелинейные уравнения\MethodsEquationsForm.Designer.cs">
       <DependentUpon>MethodsEquationsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Производная\Derivative.cs" />
+    <Compile Include="Производная\DerivativeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Производная\DerivativeForm.Designer.cs">
+      <DependentUpon>DerivativeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Системы уравнений\MethodsSystemEquation.cs" />
     <Compile Include="Системы уравнений\MethodsSystemEquationForm.cs">
@@ -114,20 +139,30 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Интегрирование\IntegralForm.resx">
+      <DependentUpon>IntegralForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Интерполяция\InterpolationForm.resx">
+      <DependentUpon>InterpolationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Нелинейные уравнения\MethodsEquationsForm.resx">
       <DependentUpon>MethodsEquationsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Производная\DerivativeForm.resx">
+      <DependentUpon>DerivativeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Системы уравнений\MethodsSystemEquationForm.resx">
       <DependentUpon>MethodsSystemEquationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Таблица\TableDataForm.resx">
       <DependentUpon>TableDataForm.cs</DependentUpon>
@@ -159,7 +194,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Интерполяция\" />
+    <EmbeddedResource Include="Properties\links.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="links.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="savedMatrix.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\JetBrains.ReSharper.CommandLineTools.2018.3.4\build\JetBrains.ReSharper.CommandLineTools.targets" Condition="Exists('..\packages\JetBrains.ReSharper.CommandLineTools.2018.3.4\build\JetBrains.ReSharper.CommandLineTools.targets')" />

@@ -3,7 +3,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace MethodsV3
+namespace MethodsV3.Вспомогательные_классы
 {
     class CreateChart : FleeCompile, IDisposable
     {
@@ -153,25 +153,30 @@ namespace MethodsV3
                 NormalizeTg(min, max);
                 return;
             }
-            if(mainChart.Series[2].Points.Count == 0)
+            if (mainChart.Series[2].Points.Count == 0)
                 for (double i = min; i < max; i += 0.05)
-                    mainChart.Series[2].Points.AddXY(i, CalculateByPoint(i));
+                {
+                    double y = CalculateByPoint(i);
+                    mainChart.Series[2].Points.AddXY(i, y > 1000 ? 1000 : y);
+                    if (double.IsNaN(y) || double.IsInfinity(y))
+                        mainChart.Series[2].Points[mainChart.Series[2].Points.Count - 1].IsEmpty = true;
+                }
 
         }
         double piValueMin, piValueMax;
 
         private void NormalizeTg(double min,double max)
         {
-            piValueMin = min == 0.001 ? 1.57 : -Math.Round(((2 * Math.PI + (int)(Math.Abs(min) / Math.PI) * Math.PI) / 2), 2);
-            piValueMax = Math.Round(((2 * Math.PI + (int)(Math.Abs(max) / Math.PI) * Math.PI) / 2), 2);
-            for (double i = piValueMin; Math.Round(i, 2) <= piValueMax; i += 3.14)
+            piValueMin = min == 0.001 ? Math.PI/2 : -Math.Round(((2 * Math.PI + (int)(Math.Abs(min) / Math.PI) * Math.PI) / 2), 6);
+            piValueMax = Math.Round(((2 * Math.PI + (int)(Math.Abs(max) / Math.PI) * Math.PI) / 2), 6);
+            for (double i = piValueMin; Math.Round(i, 2) <= piValueMax; i += Math.PI)
                 mainChart.Series[2].Points.FindByValue(Math.Round(i, 2), "X").IsEmpty = true;
         }
         private void NormalizeCtg(double min, double max)
         {
-            piValueMin = min == 0.001 ? 3.14 : Math.Round(((int)(min / Math.PI) * Math.PI), 2);
+            piValueMin = min == 0.001 ? Math.PI : Math.Round(((int)(min / Math.PI) * Math.PI), 2);
             piValueMax = Math.Round(((int)(Math.Abs(max) / Math.PI) * Math.PI), 2);
-            for (double i = piValueMin; Math.Round(i, 2) <= piValueMax; i += 3.14)
+            for (double i = piValueMin; Math.Round(i, 2) <= piValueMax; i += Math.PI)
                 mainChart.Series[2].Points.FindByValue(Math.Round(i, 2), "X").IsEmpty = true;
         }
 
